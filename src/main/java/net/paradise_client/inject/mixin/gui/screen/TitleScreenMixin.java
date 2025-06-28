@@ -19,6 +19,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -55,8 +56,7 @@ public abstract class TitleScreenMixin extends Screen {
     /**
      * Alpha value for the background fade effect on the Title Screen.
      */
-    @Mutable
-    @Shadow
+    @Unique
     private float backgroundAlpha;
 
     /**
@@ -161,8 +161,8 @@ public abstract class TitleScreenMixin extends Screen {
      *
      * @param alpha The alpha value to set.
      */
-    @Shadow
-    private void setWidgetAlpha(float alpha) {
+    @Mutable
+    protected void setWidgetAlpha(float alpha) {
     }
 
     /**

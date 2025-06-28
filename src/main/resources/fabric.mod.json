@@ -31,7 +31,8 @@
     "paradiseclient.mixins.json"
   ],
   "depends": {
-    "fabricloader": "${loader_version}",
+    "fabricloader": "*",
+    "fabric-api": ">=0.127.0+1.21.6",
     "minecraft": "${minecraft_version}"
   }
 }

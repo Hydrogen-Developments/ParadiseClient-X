@@ -2,7 +2,7 @@ package net.paradise_client;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 
@@ -52,7 +52,7 @@ public class WallPaper {
         context.fillGradient(0, 0, width, height, 0xCC000000, 0xCC000000); // Black gradient background
         for (int i = 0; i < drops.length; i++) {
             String text = Helper.generateRandomString(1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", random);
-            context.drawText(MinecraftClient.getInstance().textRenderer, text, i * 10, drops[i] * 10, 0x00FF00, false);
+            context.drawText(MinecraftClient.getInstance().textRenderer, text, i * 10, drops[i] * 10, 0xFF00FF00, false);
 
             if (drops[i] * 10 > height && random.nextDouble() > 0.975)
                 drops[i] = 0;
@@ -80,7 +80,7 @@ public class WallPaper {
 
     public static void renderLegacy(DrawContext context, int width, int height) {
         context.drawTexture(
-                RenderLayer::getGuiTextured,
+                RenderPipelines.GUI_TEXTURED,
                 Identifier.of(Constants.MOD_ID, "textures/wallpaper/wallpaper.png"),
                 0, 0,
                 0.0F, 0.0F,
