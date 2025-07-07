@@ -1,11 +1,11 @@
 package net.paradise_client.inject.mixin.network.connection;
 
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.DisconnectionInfo;
 import net.minecraft.network.NetworkPhase;
-import net.minecraft.network.PacketCallbacks;
 import net.minecraft.network.listener.ClientPacketListener;
 import net.minecraft.network.listener.PacketListener;
 import net.minecraft.network.listener.ServerPacketListener;
@@ -119,10 +119,10 @@ public class ClientConnectionMixin {
      * This method cancels the sending of the packet if the PacketOutgoingPreEvent event returns false.
      * </p>
      *
-     * @param packet    The outgoing packet.
-     * @param callbacks The packet callbacks.
-     * @param flush     Whether to flush the packet.
-     * @param ci        Callback information.
+     * @param packet                The outgoing packet.
+     * @param channelFutureListener Future channel packet callbacks.
+     * @param flush                 Whether to flush the packet.
+     * @param ci                    Callback information.
      */
     @Inject(
             method = "sendImmediately",
@@ -131,7 +131,7 @@ public class ClientConnectionMixin {
     )
     public void sendImmediatelyHead(
             Packet<?> packet,
-            PacketCallbacks callbacks,
+            ChannelFutureListener channelFutureListener,
             boolean flush,
             CallbackInfo ci
     ) throws InvocationTargetException, IllegalAccessException {
@@ -147,15 +147,15 @@ public class ClientConnectionMixin {
      * This method triggers the PacketOutgoingPostEvent event after the packet has been sent.
      * </p>
      *
-     * @param packet    The outgoing packet.
-     * @param callbacks The packet callbacks.
-     * @param flush     Whether to flush the packet.
-     * @param ci        Callback information.
+     * @param packet                The outgoing packet.
+     * @param channelFutureListener Future channel packet callbacks.
+     * @param flush                 Whether to flush the packet.
+     * @param ci                    Callback information.
      */
     @Inject(method = "sendImmediately", at = @At("TAIL"))
     public void sendImmediatelyTail(
             Packet<?> packet,
-            PacketCallbacks callbacks,
+            ChannelFutureListener channelFutureListener,
             boolean flush,
             CallbackInfo ci
     ) throws InvocationTargetException, IllegalAccessException {

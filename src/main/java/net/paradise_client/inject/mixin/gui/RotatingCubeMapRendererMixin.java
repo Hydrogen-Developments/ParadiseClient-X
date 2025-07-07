@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(RotatingCubeMapRenderer.class)
 public class RotatingCubeMapRendererMixin {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void render(DrawContext context, int width, int height, float alpha, float tickDelta, CallbackInfo ci) {
+    public void render(DrawContext context, int width, int height, boolean rotate, CallbackInfo ci) {
         // Calls dynamic rendering based on the defined theme
         ThemeRenderer.render(context, width, height);
         ci.cancel();
