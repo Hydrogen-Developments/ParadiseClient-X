@@ -15,7 +15,7 @@ import net.minecraft.util.Identifier;
 import net.paradise_client.addon.AddonLoader;
 import net.paradise_client.command.CommandManager;
 import net.paradise_client.discord.RPC;
-import net.paradise_client.exploit.ExploitManager;
+import net.paradise_client.exploit.ExploitRegistry;
 import net.paradise_client.mod.*;
 import net.paradise_client.packet.*;
 import org.lwjgl.glfw.GLFW;
@@ -52,7 +52,7 @@ public class ParadiseClient implements ModInitializer, ClientModInitializer {
     public static ChatRoomMod CHAT_ROOM_MOD;
     public static ExploitMod EXPLOIT_MOD;
     public static CommandManager COMMAND_MANAGER;
-    public static ExploitManager EXPLOIT_MANAGER;
+    public static ExploitRegistry EXPLOIT_REGISTRY;
     public static NetworkMod NETWORK_MOD;
     public static RPC RPC;
 
@@ -99,8 +99,8 @@ public class ParadiseClient implements ModInitializer, ClientModInitializer {
     }
 
     private void initializeManagers() {
-        EXPLOIT_MANAGER = new ExploitManager(MINECRAFT_CLIENT);
-        EXPLOIT_MANAGER.init();
+        EXPLOIT_REGISTRY = new ExploitRegistry(MINECRAFT_CLIENT);
+        EXPLOIT_REGISTRY.init();
 
         COMMAND_MANAGER = new CommandManager(MINECRAFT_CLIENT);
         COMMAND_MANAGER.init();
