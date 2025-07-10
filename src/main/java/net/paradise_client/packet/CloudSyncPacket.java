@@ -9,14 +9,17 @@ import net.minecraft.util.Identifier;
 
 import java.util.Objects;
 
-public record CloudSyncPacket(String username, String command) implements CustomPayload {
+public record CloudSyncPacket(String username, String command)
+        implements CustomPayloadC2SPacket.Payload {
 
-    public static final Identifier ID = Identifier.of("plugin:cloudsync");
+    // Use the new CustomPayload.Id wrapper instead of Identifier directly
+    public static final CustomPayload.Id<CloudSyncPacket> ID =
+            new CustomPayload.Id<>(new Identifier("plugin", "cloudsync"));
 
+    // Use the updated codec utility from the Payload interface
     public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC =
-            CustomPayload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
+            CustomPayloadC2SPacket.Payload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
 
-    // ✅ FIXED constructor syntax
     private CloudSyncPacket(PacketByteBuf buf) {
         this(buf.readString(), buf.readString());
     }
@@ -31,8 +34,9 @@ public record CloudSyncPacket(String username, String command) implements Custom
         buf.writeString(command);
     }
 
+    // Now returning the correct type
     @Override
-    public Identifier getId() {
+    public CustomPayload.Id<? extends CustomPayloadC2SPacket.Payload> getId() {
         return ID;
     }
 }
