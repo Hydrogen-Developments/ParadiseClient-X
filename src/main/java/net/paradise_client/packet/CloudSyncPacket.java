@@ -9,13 +9,14 @@ import net.minecraft.util.Identifier;
 
 import java.util.Objects;
 
-public record CloudSyncPacket(String username, String command) extends CustomPayload {
+public record CloudSyncPacket(String username, String command) implements CustomPayload {
 
     public static final Identifier ID = Identifier.of("plugin:cloudsync");
 
     public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC =
             CustomPayload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
 
+    // ✅ FIXED constructor syntax
     private CloudSyncPacket(PacketByteBuf buf) {
         this(buf.readString(), buf.readString());
     }
