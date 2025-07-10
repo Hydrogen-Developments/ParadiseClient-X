@@ -9,10 +9,9 @@ import net.minecraft.util.Identifier;
 
 import java.util.Objects;
 
-public record CloudSyncPacket(String username, String command) implements CustomPayload.IdAware {
+public record CloudSyncPacket(String username, String command) implements CustomPayload {
 
-    public static final CustomPayload.Id<CloudSyncPacket> ID =
-            new CustomPayload.Id<>(Identifier.of("plugin:cloudsync"));
+    public static final Identifier ID = new Identifier("plugin", "cloudsync");
 
     public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC =
             CustomPayload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
@@ -32,7 +31,7 @@ public record CloudSyncPacket(String username, String command) implements Custom
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload> payloadId() {
+    public Identifier getId() {
         return ID;
     }
 }
