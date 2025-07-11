@@ -10,23 +10,16 @@ import net.minecraft.util.Identifier;
 import java.util.Objects;
 
 public record CloudSyncPacket(String username, String command)
-        implements CustomPayloadC2SPacket.Payload {
+        implements CustomPayload.Payload {
 
-    // Use the new CustomPayload.Id wrapper instead of Identifier directly
     public static final CustomPayload.Id<CloudSyncPacket> ID =
             new CustomPayload.Id<>(new Identifier("plugin", "cloudsync"));
 
-    // Use the updated codec utility from the Payload interface
     public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC =
-            CustomPayloadC2SPacket.Payload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
+            CustomPayload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
 
     private CloudSyncPacket(PacketByteBuf buf) {
         this(buf.readString(), buf.readString());
-    }
-
-    public static void send(String playerName, String command) {
-        Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler())
-                .sendPacket(new CustomPayloadC2SPacket(new CloudSyncPacket(playerName, command)));
     }
 
     public void write(PacketByteBuf buf) {
@@ -34,9 +27,16 @@ public record CloudSyncPacket(String username, String command)
         buf.writeString(command);
     }
 
-    // Now returning the correct type
     @Override
-    public CustomPayload.Id<? extends CustomPayloadC2SPacket.Payload> getId() {
+    public CustomPayload.Id<? extends CustomPayload.Payload> getId() {
         return ID;
+    }
+
+    public static void send(String username, String command) {
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.getNetworkHandler() != null) {
+            CloudSyncPacket packet = new CloudSyncPacket(username, command);
+            client.getNetworkHandler().sendPacket(new CustomPayloadC2SPacket(packet));
+        }
     }
 }
