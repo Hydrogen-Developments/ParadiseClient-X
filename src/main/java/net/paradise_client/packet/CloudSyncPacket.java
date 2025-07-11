@@ -9,17 +9,15 @@ import net.minecraft.util.Identifier;
 
 import java.util.Objects;
 
-public record CloudSyncPacket(String username, String command)
-        implements CustomPayload.Payload {
+public record CloudSyncPacket(String username, String command) implements CustomPayload {
+    public static final Id<CloudSyncPacket> ID = new Id<>(new Identifier("plugin", "cloudsync"));
+    public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC = PacketCodec.of(
+        CloudSyncPacket::write,
+        CloudSyncPacket::read
+    );
 
-    public static final CustomPayload.Id<CloudSyncPacket> ID =
-            new CustomPayload.Id<>(new Identifier("plugin", "cloudsync"));
-
-    public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC =
-            CustomPayload.codecOf(CloudSyncPacket::write, CloudSyncPacket::new);
-
-    private CloudSyncPacket(PacketByteBuf buf) {
-        this(buf.readString(), buf.readString());
+    public static CloudSyncPacket read(PacketByteBuf buf) {
+        return new CloudSyncPacket(buf.readString(), buf.readString());
     }
 
     public void write(PacketByteBuf buf) {
@@ -28,15 +26,15 @@ public record CloudSyncPacket(String username, String command)
     }
 
     @Override
-    public CustomPayload.Id<? extends CustomPayload.Payload> getId() {
+    public Id<? extends CustomPayload> getId() {
         return ID;
     }
 
-    public static void send(String username, String command) {
+    public static void send(String user, String command) {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.getNetworkHandler() != null) {
-            CloudSyncPacket packet = new CloudSyncPacket(username, command);
-            client.getNetworkHandler().sendPacket(new CustomPayloadC2SPacket(packet));
+            client.getNetworkHandler()
+                  .sendPacket(new CustomPayloadC2SPacket(new CloudSyncPacket(user, command)));
         }
     }
 }
