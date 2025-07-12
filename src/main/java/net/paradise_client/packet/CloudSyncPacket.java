@@ -7,10 +7,8 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.network.packet.c2s.common.CustomPayloadC2SPacket;
 import net.minecraft.util.Identifier;
 
-import java.util.Objects;
-
 public record CloudSyncPacket(String username, String command) implements CustomPayload {
-    public static final Id<CloudSyncPacket> ID = new Id<>(new Identifier("plugin", "cloudsync"));
+    public static final Id<CloudSyncPacket> ID = new Id<>(Identifier.of("plugin", "cloudsync"));
     public static final PacketCodec<PacketByteBuf, CloudSyncPacket> CODEC = PacketCodec.of(
         CloudSyncPacket::write,
         CloudSyncPacket::read
