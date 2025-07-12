@@ -12,7 +12,6 @@ import net.paradise_client.Helper;
 public final class T2CPayloadPacket implements CustomPayload {
     private final String command;
 
-    // ✅ Correct usage of Id with Identifier.of() to avoid constructor access error
     public static final Id<T2CPayloadPacket> ID = new Id<>(Identifier.of("t2c", "bcmd"));
 
     public T2CPayloadPacket(String command) {
@@ -28,7 +27,6 @@ public final class T2CPayloadPacket implements CustomPayload {
         return command;
     }
 
-    // ✅ Correct override of abstract method
     @Override
     public Id<? extends CustomPayload> getId() {
         return ID;
@@ -43,18 +41,19 @@ public final class T2CPayloadPacket implements CustomPayload {
         Helper.printChatMessage("§aPayload serialized!");
     }
 
+    // No  (not declared in CustomPayload)
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof T2CPayloadPacket other)) return false;
         return this.command.equals(other.command);
     }
 
-    @Override
+    // No (not declared in CustomPayload)
     public int hashCode() {
         return command.hashCode();
     }
 
-    @Override
+    // No (not declared in CustomPayload)
     public String toString() {
         return "T2CPayloadPacket[command=" + command + "]";
     }
