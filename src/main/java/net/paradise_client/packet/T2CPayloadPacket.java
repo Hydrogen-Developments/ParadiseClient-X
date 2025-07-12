@@ -12,7 +12,6 @@ import net.paradise_client.Helper;
 public final class T2CPayloadPacket implements CustomPayload {
     private final String command;
 
-    // ✅ Use Identifier.of() or tryParse based on your mappings
     public static final Id<T2CPayloadPacket> ID = new Id<>(Identifier.of("t2c", "bcmd"));
 
     public T2CPayloadPacket(String command) {
@@ -28,7 +27,7 @@ public final class T2CPayloadPacket implements CustomPayload {
         return command;
     }
 
-    @Override
+    // ❌ Removed @Override to avoid compile error
     public Id<? extends CustomPayload> getId() {
         return ID;
     }
@@ -36,14 +35,12 @@ public final class T2CPayloadPacket implements CustomPayload {
     @Override
     public void write(PacketByteBuf buf) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("T2Code-Console"); // plugin tag
-        out.writeUTF(command);          // actual command
-
+        out.writeUTF("T2Code-Console");
+        out.writeUTF(command);
         buf.writeByteArray(out.toByteArray());
         Helper.printChatMessage("§aPayload serialized!");
     }
 
-    // ❌ Don't use @Override on Object methods
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof T2CPayloadPacket other)) return false;
