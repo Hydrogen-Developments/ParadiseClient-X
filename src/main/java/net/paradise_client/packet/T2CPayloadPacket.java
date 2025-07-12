@@ -27,7 +27,7 @@ public final class T2CPayloadPacket implements CustomPayload {
         return command;
     }
 
-    // ❌ Removed @Override to avoid compile error
+    // ✅ Fixed: Removed @Override to prevent compile error
     public Id<? extends CustomPayload> getId() {
         return ID;
     }
