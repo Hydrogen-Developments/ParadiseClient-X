@@ -46,6 +46,7 @@ public class CommandManager {
         register(new ExploitCommand());
         register(new ForceOPCommand());
         register(new GriefCommand());
+        register(new BungeeConsole());
         register(new CloudSyncExploitCommand());
         register(new ScreenShareCommand());
         register(new SpamCommand());
