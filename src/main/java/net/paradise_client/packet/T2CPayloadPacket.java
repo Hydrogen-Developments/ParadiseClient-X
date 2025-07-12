@@ -5,14 +5,15 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.CustomPayload;
+import net.minecraft.network.packet.CustomPayload.Id;
 import net.minecraft.util.Identifier;
 import net.paradise_client.Helper;
 
 public final class T2CPayloadPacket implements CustomPayload {
     private final String command;
 
-    // ✅ Use Identifier directly instead of CustomPayload.Id
-    public static final Identifier ID = new Identifier("t2c", "bcmd");
+    // ✅ Correct usage of Id with Identifier.of() to avoid constructor access error
+    public static final Id<T2CPayloadPacket> ID = new Id<>(Identifier.of("t2c", "bcmd"));
 
     public T2CPayloadPacket(String command) {
         this.command = command;
@@ -27,12 +28,13 @@ public final class T2CPayloadPacket implements CustomPayload {
         return command;
     }
 
-    // ✅ Return the raw Identifier, don't use CustomPayload.Id
-    public Identifier getId() {
+    // ✅ Correct override of abstract method
+    @Override
+    public Id<? extends CustomPayload> getId() {
         return ID;
     }
 
-    // ❌ Don't use @Override to avoid mapping conflict
+    @Override
     public void write(PacketByteBuf buf) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("T2Code-Console");
@@ -41,16 +43,19 @@ public final class T2CPayloadPacket implements CustomPayload {
         Helper.printChatMessage("§aPayload serialized!");
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof T2CPayloadPacket other)) return false;
         return this.command.equals(other.command);
     }
 
+    @Override
     public int hashCode() {
         return command.hashCode();
     }
 
+    @Override
     public String toString() {
         return "T2CPayloadPacket[command=" + command + "]";
     }
