@@ -43,7 +43,6 @@ public final class T2CPayloadPacket implements CustomPayload {
         Helper.printChatMessage("§aPayload serialized!");
     }
 
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof T2CPayloadPacket other)) return false;
