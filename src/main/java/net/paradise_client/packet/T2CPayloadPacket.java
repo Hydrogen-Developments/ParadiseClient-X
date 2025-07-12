@@ -5,14 +5,14 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.CustomPayload;
-import net.minecraft.network.packet.CustomPayload.Id;
 import net.minecraft.util.Identifier;
 import net.paradise_client.Helper;
 
 public final class T2CPayloadPacket implements CustomPayload {
     private final String command;
 
-    public static final Id<T2CPayloadPacket> ID = new Id<>(Identifier.of("t2c", "bcmd"));
+    // ✅ Use Identifier directly instead of CustomPayload.Id
+    public static final Identifier ID = new Identifier("t2c", "bcmd");
 
     public T2CPayloadPacket(String command) {
         this.command = command;
@@ -27,12 +27,12 @@ public final class T2CPayloadPacket implements CustomPayload {
         return command;
     }
 
-    // ✅ Fixed: Removed @Override to prevent compile error
-    public Id<? extends CustomPayload> getId() {
+    // ✅ Return the raw Identifier, don't use CustomPayload.Id
+    public Identifier getId() {
         return ID;
     }
 
-    @Override
+    // ❌ Don't use @Override to avoid mapping conflict
     public void write(PacketByteBuf buf) {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("T2Code-Console");
