@@ -51,7 +51,7 @@ public class CommandManager {
         register(new PlayersCommand());
         register(new ToggleTABCommand());
         register(new PurpurExploitCommand());
-        register(new AuthMeVelocityBypassCommand());
+        register(new AuthMeBungeeBypassCommand());
         register(new SayCommand());
         register(new ChatSentryCommand());
         register(new ECBCommand());
