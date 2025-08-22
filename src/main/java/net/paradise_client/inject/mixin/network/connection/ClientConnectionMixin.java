@@ -17,10 +17,10 @@ import net.minecraft.text.Text;
 import net.paradise_client.Helper;
 import net.paradise_client.ParadiseClient;
 import net.paradise_client.event.network.PhaseChangeEvent;
-import net.paradise_client.event.packet.incoming.PacketIncomingPostEvent;
-import net.paradise_client.event.packet.incoming.PacketIncomingPreEvent;
-import net.paradise_client.event.packet.outgoing.PacketOutgoingPostEvent;
-import net.paradise_client.event.packet.outgoing.PacketOutgoingPreEvent;
+import net.paradise_client.event.network.packet.incoming.PacketIncomingPostEvent;
+import net.paradise_client.event.network.packet.incoming.PacketIncomingPreEvent;
+import net.paradise_client.event.network.packet.outgoing.PacketOutgoingPostEvent;
+import net.paradise_client.event.network.packet.outgoing.PacketOutgoingPreEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -70,7 +70,9 @@ public class ClientConnectionMixin {
 
         if (packet instanceof CommandSuggestionsS2CPacket suggestionsS2CPacket) {
             if (suggestionsS2CPacket.id() != ParadiseClient.MISC_MOD.requestId) return;
+            if (!ParadiseClient.MISC_MOD.isDumping) return;
             Helper.printChatMessage("Command suggestions received! Dumping");
+            Helper.printChatMessage("Debug request id: " + suggestionsS2CPacket.id());
             List<CommandSuggestionsS2CPacket.Suggestion> suggestions = suggestionsS2CPacket.suggestions();
 
             new Thread(() -> {

@@ -1,4 +1,4 @@
-package net.paradise_client.event.packet.outgoing;
+package net.paradise_client.event.network.packet.outgoing;
 
 import io.github.spigotrce.eventbus.event.Cancellable;
 import io.github.spigotrce.eventbus.event.Event;

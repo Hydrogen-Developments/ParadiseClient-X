@@ -34,31 +34,6 @@ repositories {
         url 'https://jitpack.io'
     }
 
-    maven {
-        name = 'ViaVersion'
-        url = 'https://repo.viaversion.com/'
-    }
-
-    maven {
-        name = "modrinth"
-        url = "https://api.modrinth.com/maven"
-    }
-
-    maven {
-        name = "Lenni0451"
-        url = "https://maven.lenni0451.net/everything"
-    }
-
-    maven {
-        name = "OpenCollab Releases"
-        url = "https://repo.opencollab.dev/maven-releases"
-    }
-
-    maven {
-        name = "OpenCollab Snapshots"
-        url = "https://repo.opencollab.dev/maven-snapshots"
-    }
-
     flatDir {
         dirs 'libs'
     }
@@ -76,9 +51,6 @@ dependencies {
     )
     modImplementation(
             "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    )
-    modImplementation(
-            "com.viaversion:viafabricplus:${project.viafabricplus_version}"
     )
 
     def shadowLibs = [

@@ -1,12 +1,12 @@
-package net.paradise_client.event.packet.outgoing;
+package net.paradise_client.event.network.packet.incoming;
 
 import io.github.spigotrce.eventbus.event.Event;
 import net.minecraft.network.packet.Packet;
 
-public class PacketOutgoingPostEvent extends Event {
+public class PacketIncomingPostEvent extends Event {
     private final Packet<?> packet;
 
-    public PacketOutgoingPostEvent(Packet<?> packet) {
+    public PacketIncomingPostEvent(Packet<?> packet) {
         this.packet = packet;
     }
 

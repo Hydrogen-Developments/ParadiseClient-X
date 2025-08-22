@@ -9,10 +9,9 @@ import net.md_5.bungee.protocol.Protocol;
 import net.md_5.bungee.protocol.ProtocolConstants;
 import net.md_5.bungee.protocol.packet.PluginMessage;
 import net.minecraft.network.PacketByteBuf;
-import net.paradise_client.Constants;
 import net.paradise_client.Helper;
 import net.paradise_client.ParadiseClient;
-import net.paradise_client.event.channel.PluginMessageEvent;
+import net.paradise_client.event.network.message.PluginMessageEvent;
 
 import java.nio.charset.Charset;
 import java.util.List;

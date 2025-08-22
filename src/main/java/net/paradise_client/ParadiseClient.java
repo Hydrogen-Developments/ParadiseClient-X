@@ -18,6 +18,7 @@ import net.paradise_client.discord.RPC;
 import net.paradise_client.exploit.ExploitManager;
 import net.paradise_client.mod.*;
 import net.paradise_client.packet.*;
+import net.paradise_client.ui.notification.NotificationManager;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.system.MemoryStack;
@@ -54,6 +55,7 @@ public class ParadiseClient implements ModInitializer, ClientModInitializer {
     public static CommandManager COMMAND_MANAGER;
     public static ExploitManager EXPLOIT_MANAGER;
     public static NetworkMod NETWORK_MOD;
+    public static NotificationManager NOTIFICATION_MANAGER;
     public static RPC RPC;
 
     @Override
@@ -104,6 +106,8 @@ public class ParadiseClient implements ModInitializer, ClientModInitializer {
 
         COMMAND_MANAGER = new CommandManager(MINECRAFT_CLIENT);
         COMMAND_MANAGER.init();
+
+        NOTIFICATION_MANAGER = new NotificationManager();
     }
 
     private void setupKeyBindings() {

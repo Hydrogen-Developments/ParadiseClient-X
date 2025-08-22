@@ -19,6 +19,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.paradise_client.inject.accessor.ClientConnectionAccessor;
+import net.paradise_client.ui.notification.Notification;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -283,15 +284,7 @@ public class Helper {
     }
 
     public static void showNotification(String title, String message) {
-        System.out.println(title);
-        System.out.println(message);
-        ToastManager toastManager = MinecraftClient.getInstance().getToastManager();
-        SystemToast toast = new SystemToast(
-                SystemToast.Type.CHUNK_LOAD_FAILURE,
-                Text.literal(title),
-                Text.literal(message)
-        );
-        toastManager.add(toast);
+        ParadiseClient.NOTIFICATION_MANAGER.addNotification(new Notification(title, message));
     }
 
     public static void showTrayMessage(String message) throws AWTException {

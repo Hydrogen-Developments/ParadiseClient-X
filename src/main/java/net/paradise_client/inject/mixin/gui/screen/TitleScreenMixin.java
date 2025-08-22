@@ -1,6 +1,5 @@
 package net.paradise_client.inject.mixin.gui.screen;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.LogoDrawer;
@@ -99,21 +98,7 @@ public abstract class TitleScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At(value = "TAIL"))
     public void init(CallbackInfo ci) {
-        if (!FabricLoader.getInstance().isModLoaded("viafabricplus")) {
-
-            String VFP_REMINDER = "We recommend installing ViaFabricPlus";
-            this.addDrawableChild(ButtonWidget.builder(Text.literal(VFP_REMINDER),
-                            onPress -> {
-                                Util.getOperatingSystem().open("https://modrinth.com/mod/viafabricplus/versions");
-                                MinecraftClient.getInstance().setScreen(new TitleScreen());
-                            })
-                    .width(this.textRenderer.getWidth(VFP_REMINDER) + 5)
-                    .position((this.width / 2) - ((this.textRenderer.getWidth(VFP_REMINDER) + 5) / 2), this.height / 4 + 48 + 72 + 12 + 35 + 33)
-                    .build()
-            );
-        }
-
-        Text updateMessage1 = Helper.parseColoredText("&2Current version: &1" + Constants.VERSION + " &2Latetst version: &1" + ParadiseClient.MISC_MOD.latestVersion + " &fClick to download");
+       Text updateMessage1 = Helper.parseColoredText("&2Current version: &1" + Constants.VERSION + " &2Latetst version: &1" + ParadiseClient.MISC_MOD.latestVersion + " &fClick to download");
         if (ParadiseClient.MISC_MOD.isClientOutdated) {
             this.addDrawableChild(new PressableTextWidget(this.width - this.textRenderer.getWidth(updateMessage1) - 2, this.height - 20, this.textRenderer.getWidth(updateMessage1), 10, updateMessage1, (button) -> {
                 Util.getOperatingSystem().open("https://paradise-client.net/downloads");

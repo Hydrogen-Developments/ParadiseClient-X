@@ -21,6 +21,7 @@ public class DumpCommand extends Command {
             Helper.sendPacket(new RequestCommandCompletionsC2SPacket(
                     ParadiseClient.MISC_MOD.requestId, "/ip ")
             );
+            ParadiseClient.MISC_MOD.isDumping = true;
             Helper.printChatMessage("Attempting to dump IPs via bungee /ip method!");
             return Command.SINGLE_SUCCESS;
         });
