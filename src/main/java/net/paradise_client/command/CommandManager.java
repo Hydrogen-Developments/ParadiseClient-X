@@ -61,6 +61,7 @@ public class CommandManager {
         register(new SignedVelocityCommand());
         register(new DumpCommand());
         register(new HelpCommand());
+        register(new ServerInfoCommand());
         register(new ChatRoomCommand());
     }
 
