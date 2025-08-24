@@ -33,6 +33,4 @@ public class MiscMod {
      * Command suggestions request id.
      */
     public int requestId;
-
-    public boolean isDumping = false;
 }

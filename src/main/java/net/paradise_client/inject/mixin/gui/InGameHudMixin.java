@@ -91,8 +91,6 @@ public abstract class InGameHudMixin {
             renderTextWithChroma(context, s, 5, 5 + this.client.textRenderer.fontHeight * i);
             i++;
         }
-
-        ParadiseClient.NOTIFICATION_MANAGER.drawNotifications(context, this.client.textRenderer);
     }
 
     /**
