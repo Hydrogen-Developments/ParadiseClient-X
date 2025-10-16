@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - esr
   workflow_dispatch:
 
 jobs:
@@ -23,10 +24,12 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Get short Git hash
-        id: get-git-hash
+      - name: Get branch and short Git hash
+        id: get-info
         run: |
+          BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
           GIT_HASH=$(git rev-parse --short HEAD)
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
           echo "GIT_HASH=$GIT_HASH" >> $GITHUB_ENV
 
       - name: Build project
@@ -50,6 +53,15 @@ jobs:
 
           JAR_FILE="${BASE_JAR_FILES[0]}"
           JAR_NAME=$(basename "$JAR_FILE")
+
+          # If branch is 'esr', rename with -esr suffix
+          if [[ "${{ env.BRANCH_NAME }}" == "esr" ]]; then
+            NEW_JAR_NAME="${JAR_NAME%.jar}-esr.jar"
+            mv "$JAR_FILE" "build/libs/$NEW_JAR_NAME"
+            JAR_FILE="build/libs/$NEW_JAR_NAME"
+            JAR_NAME="$NEW_JAR_NAME"
+          fi
+
           echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
           echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
 
