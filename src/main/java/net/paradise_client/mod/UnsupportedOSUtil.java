@@ -17,7 +17,7 @@ public class UnsupportedOSUtil {
   private static final AtomicBoolean checksPerformed = new AtomicBoolean(false);
   private static final int MIN_WINDOWS_BUILD = 22000;
   private static final int WINDOWS_10_ESR_BUILD = 19041;
-  private static final long WINDOWS_10_ESR_END = 1760558400000L; // October 16, 2026 IN EPOCH TIME
+  private static final long WINDOWS_10_ESR_END = 1792108800000L; // October 16, 2026 IN EPOCH TIME
   private static final int MIN_MACOS_VERSION = 12;
   private static final int MIN_LINUX_KERNEL_MAJOR = 5;
   private static final int MIN_LINUX_KERNEL_MINOR = 10;
