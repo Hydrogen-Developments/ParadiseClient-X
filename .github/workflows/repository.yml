@@ -50,8 +50,11 @@ jobs:
 
           JAR_FILE="${BASE_JAR_FILES[0]}"
           JAR_NAME=$(basename "$JAR_FILE")
+          VERSION_NAME="${JAR_NAME%.jar}"
+
           echo "JAR_FILE=$JAR_FILE" >> $GITHUB_ENV
           echo "JAR_NAME=$JAR_NAME" >> $GITHUB_ENV
+          echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
 
       - name: Upload artifact to Nexus
         run: |
@@ -59,30 +62,35 @@ jobs:
           curl -X PUT "https://paradise-client.net/api/versions" \
                -u ${{ secrets.NEXUS_USERNAME }}:${{ secrets.NEXUS_PASSWORD }} \
                -F "file=@${{ env.JAR_FILE }}" \
-               -F "version=${{ env.GIT_HASH }}" \
+               -F "version=${{ env.VERSION_NAME }}" \
                -F "release_date=${RELEASE_DATE}"
 
       - name: Send Discord embed notification
         if: success()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          VERSION_NAME: ${{ env.VERSION_NAME }}
           GIT_HASH: ${{ env.GIT_HASH }}
           REPO: ${{ github.repository }}
           AUTHOR: ${{ github.actor }}
           AVATAR_URL: "https://github.com/${{ github.actor }}.png"
         run: |
-          DESCRIPTION=$'**Version:** `'"$GIT_HASH"'`\n**Downloads:** [paradise-client.net/downloads](https://paradise-client.net/downloads/)\n**Commit:** [`"$GIT_HASH"`](https://github.com/'"$REPO"'/commit/'"$GIT_HASH"')'
-
-          EMBED_JSON=$(jq -n \
-            --arg title "Paradise Client Build Released" \
-            --arg desc "$DESCRIPTION" \
-            --arg color "5763719" \
-            --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
-            --arg author_name "$AUTHOR" \
-            --arg author_icon "$AVATAR_URL" \
-            '{embeds: [{title: $title, description: $desc, color: ($color | tonumber), timestamp: $timestamp, author: {name: $author_name, icon_url: $author_icon}}]}' )
-
           curl -H "Content-Type: application/json" \
-               -X POST \
-               -d "$EMBED_JSON" \
-               "$DISCORD_WEBHOOK_URL"
+            -X POST \
+            -d '{
+              "content": "<@&1435679810457178122>",
+              "allowed_mentions": { "parse": ["roles"] },
+              "embeds": [
+                {
+                  "title": "Paradise Client Build Released",
+                  "description": "**Version:** `'${VERSION_NAME}'`\n**Downloads:** [paradise-client.net/downloads](https://paradise-client.net/downloads/)\n**Commit:** [`'${GIT_HASH}'`](https://github.com/'${REPO}'/commit/'${GIT_HASH}')",
+                  "color": 5763719,
+                  "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+                  "author": {
+                    "name": "'${AUTHOR}'",
+                    "icon_url": "'${AVATAR_URL}'"
+                  }
+                }
+              ]
+            }' \
+            "$DISCORD_WEBHOOK_URL"
