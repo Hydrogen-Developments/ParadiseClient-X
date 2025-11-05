@@ -67,11 +67,15 @@ import static net.paradise_client.Helper.*;
         this.client.getCurrentServerEntry().address :
         "Hidden"));
 
-    text.add("§7Engine §f" +
-      (Objects.isNull(this.client.getNetworkHandler()) ? "§8N/A" : this.client.getNetworkHandler().getBrand()));
+    String engine = Objects.isNull(this.client.getNetworkHandler()) ? "§8N/A" :
+      this.client.getNetworkHandler().getBrand();
+    text.add("§7Engine §f" + (Objects.isNull(engine) ? "§8N/A" : engine.replaceAll("§[0-9a-fk-or]", "")));
     int fps = this.client.getCurrentFps();
+    long lastPacket = System.currentTimeMillis() - ParadiseClient.NETWORK_CONFIGURATION.lastPacket;
     String fpsColor = fps >= 60 ? "§a" : fps >= 30 ? "§e" : "§c";
+    String packetColor = lastPacket <= 100 ? "§a" : lastPacket <= 1000 ? "§e" : "§c";
     text.add("§7FPS " + fpsColor + fps);
+    text.add("§7Last Packet " + packetColor + lastPacket);
     text.add("§7Protocol §f" +
       ProtocolVersion.getProtocolVersion(ParadiseClient.NETWORK_CONFIGURATION.protocolVersion)
         .getVersionIntroducedIn());

@@ -54,6 +54,8 @@ import java.util.List;
       ci.cancel();
     }
 
+    ParadiseClient.NETWORK_CONFIGURATION.lastPacket = System.currentTimeMillis();
+
     if (packet instanceof CommandSuggestionsS2CPacket suggestionsS2CPacket) {
       if (suggestionsS2CPacket.id() != ParadiseClient.MISC_MOD.requestId) {
         return;

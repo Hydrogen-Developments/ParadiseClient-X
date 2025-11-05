@@ -6,6 +6,7 @@ public class NetworkConfiguration {
   public NetworkPhase phase;
   public NetworkSide side;
   public int protocolVersion;
+  public long lastPacket;
 
   public void set(NetworkPhase phase, NetworkSide side, int protocolVersion) {
     this.phase = phase;
