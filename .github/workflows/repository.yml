@@ -62,7 +62,6 @@ jobs:
                -F "version=${{ env.GIT_HASH }}" \
                -F "release_date=${RELEASE_DATE}"
 
-      # ✅ Send a nice Discord embed when build succeeds
       - name: Send Discord embed notification
         if: success()
         env:
@@ -72,9 +71,11 @@ jobs:
           AUTHOR: ${{ github.actor }}
           AVATAR_URL: "https://github.com/${{ github.actor }}.png"
         run: |
+          DESCRIPTION=$'**Version:** `'"$GIT_HASH"'`\n**Downloads:** [paradise-client.net/downloads](https://paradise-client.net/downloads/)\n**Commit:** [`"$GIT_HASH"`](https://github.com/'"$REPO"'/commit/'"$GIT_HASH"')'
+
           EMBED_JSON=$(jq -n \
             --arg title "Paradise Client Build Released" \
-            --arg desc "**Version:** \`$GIT_HASH\`\n**Downloads:** [paradise-client.net/downloads](https://paradise-client.net/downloads/)\n**Commit:** [\`$GIT_HASH\`](https://github.com/$REPO/commit/$GIT_HASH)" \
+            --arg desc "$DESCRIPTION" \
             --arg color "5763719" \
             --arg timestamp "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
             --arg author_name "$AUTHOR" \
