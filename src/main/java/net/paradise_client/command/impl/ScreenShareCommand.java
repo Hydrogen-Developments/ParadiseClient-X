@@ -4,6 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 /**
  * Represents a command that toggles the display of server IP on the HUD.
@@ -17,7 +18,7 @@ public class ScreenShareCommand extends Command {
    * Constructs a new instance of {@link ScreenShareCommand}.
    */
   public ScreenShareCommand() {
-    super("screenshare", "Toggles IP displayed on HUD");
+    super("screenshare", "Toggles IP displayed on HUD", CommandManager.CommandCategory.UTILITY);
   }
 
   /**

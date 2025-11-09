@@ -11,72 +11,38 @@ import net.paradise_client.Helper;
 
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Abstract class representing a command in the Paradise Client Fabric mod. This class provides basic functionality for
- * creating commands and managing their properties.
- */
 public abstract class Command {
   protected static final int SINGLE_SUCCESS = com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
   private final String name;
   private final String description;
   private final boolean async;
+  private final CommandManager.CommandCategory category;
 
-  /**
-   * Constructor for the Command class.
-   *
-   * @param name        The name of the command.
-   * @param description The description of the command.
-   */
-  public Command(String name, String description) {
-    this(name, description, false);
+  public Command(String name, String description, CommandManager.CommandCategory category) {
+    this(name, description, category, false);
   }
 
-  /**
-   * Constructor for the Command class.
-   *
-   * @param name        The name of the command.
-   * @param description The description of the command.
-   * @param async       Whether the command should be run inside a background thread
-   */
-  public Command(String name, String description, boolean async) {
+  public Command(String name, String description, CommandManager.CommandCategory category, boolean async) {
     this.name = name;
     this.description = description;
+    this.category = category;
     this.async = async;
   }
 
-  /**
-   * Protected method to create a literal argument builder for Brigadier.
-   *
-   * @param name The name of the literal argument.
-   *
-   * @return A Brigadier literal argument builder.
-   */
   protected static LiteralArgumentBuilder<CommandSource> literal(final String name) {
     return LiteralArgumentBuilder.literal(name);
   }
 
-  /**
-   * Protected method to create an argument builder for Brigadier.
-   *
-   * @param name The name of the argument.
-   * @param type The type of the argument.
-   *
-   * @return A Brigadier literal argument builder.
-   */
   protected static <T> RequiredArgumentBuilder<CommandSource, T> argument(final String name,
-    final ArgumentType<T> type) {
+                                                                          final ArgumentType<T> type) {
     return RequiredArgumentBuilder.argument(name, type);
   }
 
-  /**
-   * Abstract method to build the command using Brigadier's argument builder.
-   */
-  abstract public void build(LiteralArgumentBuilder<CommandSource> root);
+  public abstract void build(LiteralArgumentBuilder<CommandSource> root);
 
   public CompletableFuture<Suggestions> suggestOnlinePlayers(CommandContext<?> ctx, SuggestionsBuilder builder) {
     String partialName;
-
     try {
       partialName = ctx.getArgument("user", String.class).toLowerCase();
     } catch (IllegalArgumentException ignored) {
@@ -85,28 +51,22 @@ public abstract class Command {
 
     if (partialName.isEmpty()) {
       getMinecraftClient().getNetworkHandler()
-        .getPlayerList()
-        .forEach(playerListEntry -> builder.suggest(playerListEntry.getProfile().getName()));
+              .getPlayerList()
+              .forEach(playerListEntry -> builder.suggest(playerListEntry.getProfile().getName()));
       return builder.buildFuture();
     }
 
     String finalPartialName = partialName;
-
     getMinecraftClient().getNetworkHandler()
-      .getPlayerList()
-      .stream()
-      .map(PlayerListEntry::getProfile)
-      .filter(player -> player.getName().toLowerCase().startsWith(finalPartialName.toLowerCase()))
-      .forEach(profile -> builder.suggest(profile.getName()));
+            .getPlayerList()
+            .stream()
+            .map(PlayerListEntry::getProfile)
+            .filter(player -> player.getName().toLowerCase().startsWith(finalPartialName.toLowerCase()))
+            .forEach(profile -> builder.suggest(profile.getName()));
 
     return builder.buildFuture();
   }
 
-  /**
-   * Getter for the Minecraft client instance.
-   *
-   * @return The Minecraft client instance.
-   */
   public MinecraftClient getMinecraftClient() {
     return MinecraftClient.getInstance();
   }
@@ -116,31 +76,19 @@ public abstract class Command {
     return 1;
   }
 
-  /**
-   * Getter for the command name.
-   *
-   * @return The name of the command.
-   */
   public String getName() {
     return name;
   }
 
-  /**
-   * Getter for the command description.
-   *
-   * @return The description of the command.
-   */
   public String getDescription() {
     return description;
   }
 
-  /**
-   * Getter for whether command is async.
-   *
-   * @return Whether command is async.
-   */
   public boolean isAsync() {
     return async;
   }
 
+  public CommandManager.CommandCategory getCategory() {
+    return category;
+  }
 }

@@ -5,10 +5,11 @@ import com.mojang.brigadier.context.CommandContext;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 public class RPCCommand extends Command {
   public RPCCommand() {
-    super("rpc", "Disable/Enable Discord Rich Presence");
+    super("rpc", "Disable/Enable Discord Rich Presence", CommandManager.CommandCategory.UTILITY);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

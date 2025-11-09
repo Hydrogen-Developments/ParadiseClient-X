@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.Helper;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.util.Random;
 
@@ -13,7 +14,7 @@ public class ChatSentryCommand extends Command {
   private final String channel = "chatsentry:datasync";
 
   public ChatSentryCommand() {
-    super("chatsentry", "Executes bungee command through console!");
+    super("chatsentry", "Executes bungee command through console!", CommandManager.CommandCategory.EXPLOIT);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

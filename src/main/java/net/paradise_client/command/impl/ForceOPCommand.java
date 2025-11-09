@@ -3,6 +3,7 @@ package net.paradise_client.command.impl;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.util.Objects;
 
@@ -19,7 +20,7 @@ public class ForceOPCommand extends Command {
    * Constructs a new instance of the ForceOPCommand class.
    */
   public ForceOPCommand() {
-    super("forceop", "Gives OP thru CMI console command sender exploit");
+    super("forceop", "Gives OP thru CMI console command sender exploit", CommandManager.CommandCategory.EXPLOIT);
   }
 
   /**

@@ -5,10 +5,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 public class AuthMeVelocityBypassCommand extends Command {
   public AuthMeVelocityBypassCommand() {
-    super("authmevelocitybypass", "Bypasses AuthMeVelocity");
+    super("authmevelocitybypass", "Bypasses AuthMeVelocity", CommandManager.CommandCategory.EXPLOIT);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

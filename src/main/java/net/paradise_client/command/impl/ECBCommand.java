@@ -5,10 +5,11 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 public class ECBCommand extends Command {
   public ECBCommand() {
-    super("ecb", "Console command execution exploit");
+    super("ecb", "Console command execution exploit", CommandManager.CommandCategory.EXPLOIT);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

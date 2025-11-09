@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class GriefCommand extends Command {
    * Constructs a new instance of {@link GriefCommand}.
    */
   public GriefCommand() {
-    super("grief", "Multiple grief commands");
+    super("grief", "Multiple grief commands", CommandManager.CommandCategory.UTILITY);
   }
 
   /**

@@ -5,6 +5,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 /**
  * This class represents a command for spamming a specified command in Minecraft.
@@ -27,7 +28,7 @@ public class SpamCommand extends Command {
    * Constructs a new SpamCommand instance.
    */
   public SpamCommand() {
-    super("spam", "Spams the specified command");
+    super("spam", "Spams the specified command", CommandManager.CommandCategory.MISC);
   }
 
   /**

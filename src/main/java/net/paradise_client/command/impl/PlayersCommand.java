@@ -5,6 +5,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.text.Text;
 import net.paradise_client.Helper;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class PlayersCommand extends Command {
    * Constructs a new instance of PlayersCommand.
    */
   public PlayersCommand() {
-    super("players", "Gets info about players online on the server");
+    super("players", "Gets info about players online on the server", CommandManager.CommandCategory.MISC);
   }
 
   /**

@@ -6,10 +6,11 @@ import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 public class SignedVelocityCommand extends Command {
   public SignedVelocityCommand() {
-    super("signedvelocity", "Spoofs player sent commands");
+    super("signedvelocity", "Spoofs player sent commands", CommandManager.CommandCategory.EXPLOIT);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

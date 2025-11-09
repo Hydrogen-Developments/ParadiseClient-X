@@ -4,6 +4,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.Helper;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.awt.*;
 import java.awt.datatransfer.*;
@@ -21,7 +22,7 @@ public class CopyCommand extends Command {
    * Constructs a new CopyCommand instance.
    */
   public CopyCommand() {
-    super("copy", "Copies the broadcast of SpigotRCE");
+    super("copy", "Copies the broadcast of SpigotRCE", CommandManager.CommandCategory.MISC);
   }
 
   /**

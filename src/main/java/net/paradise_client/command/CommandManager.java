@@ -8,34 +8,34 @@ import net.minecraft.command.CommandSource;
 import net.paradise_client.*;
 import net.paradise_client.command.impl.*;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Manages and registers commands for the Paradise Client Fabric mod.
  */
 public class CommandManager {
 
-  /**
-   * The command dispatcher used to register commands.
-   */
+  public enum CommandCategory {
+    EXPLOIT("Exploits"),
+    UTILITY("Utility"),
+    MISC("Miscellaneous");
+
+    private final String displayName;
+
+    CommandCategory(String displayName) {
+      this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+      return displayName;
+    }
+  }
+
   public final CommandDispatcher<CommandSource> DISPATCHER = new CommandDispatcher<>();
-  /**
-   * The command dispatcher prefix used to execute commands.
-   */
   public final String prefix = ",";
-  /**
-   * A list of all registered commands.
-   */
   private final ArrayList<Command> commands = new ArrayList<>();
-  /**
-   * The {@link MinecraftClient} instance.
-   */
   private final MinecraftClient minecraftClient;
 
-
-  /**
-   * Constructs a new CommandManager instance and registers all commands.
-   */
   public CommandManager(MinecraftClient minecraftClient) {
     this.minecraftClient = minecraftClient;
   }
@@ -60,11 +60,6 @@ public class CommandManager {
     register(new RPCCommand());
   }
 
-  /**
-   * Registers a command with the command dispatcher.
-   *
-   * @param command The command to register.
-   */
   public void register(Command command) {
     this.commands.add(command);
     LiteralArgumentBuilder<CommandSource> node = Command.literal(command.getName());
@@ -73,42 +68,29 @@ public class CommandManager {
     Constants.LOGGER.info("Registered command: {}", command.getName());
   }
 
-  /**
-   * Returns a list of all registered commands.
-   *
-   * @return The list of commands.
-   */
   public ArrayList<Command> getCommands() {
     return this.commands;
   }
 
-  /**
-   * Dispatches the provided command.
-   *
-   * @param message The input message.
-   */
+  public List<Command> getCommandsByCategory(CommandCategory category) {
+    List<Command> list = new ArrayList<>();
+    for (Command cmd : commands) {
+      if (cmd.getCategory() == category) list.add(cmd);
+    }
+    return list;
+  }
+
   public void dispatch(String message) {
-    if (getCommand(message) != null) {
-      if (getCommand(message).isAsync()) {
-        Helper.runAsync(() -> dispatchCommand(message));
-        return;
-      }
+    if (getCommand(message) != null && getCommand(message).isAsync()) {
+      Helper.runAsync(() -> dispatchCommand(message));
+      return;
     }
     Helper.runAsync(() -> dispatchCommand(message));
   }
 
-  /**
-   * Returns the command with the specified alias, or null if no such command exists.
-   *
-   * @param alias The alias of the command to find.
-   *
-   * @return The command with the specified alias, or null if not found.
-   */
   public Command getCommand(String alias) {
     for (Command command : commands) {
-      if (command.getName().equals(alias)) {
-        return command;
-      }
+      if (command.getName().equals(alias)) return command;
     }
     return null;
   }

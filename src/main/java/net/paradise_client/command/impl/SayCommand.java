@@ -5,11 +5,12 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.command.CommandSource;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 import net.paradise_client.inject.accessor.ClientPlayNetworkHandlerAccessor;
 
 public class SayCommand extends Command {
   public SayCommand() {
-    super("say", "Sends a chat message to the server");
+    super("say", "Sends a chat message to the server", CommandManager.CommandCategory.UTILITY);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {

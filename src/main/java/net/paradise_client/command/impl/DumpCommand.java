@@ -5,12 +5,13 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.network.packet.c2s.play.RequestCommandCompletionsC2SPacket;
 import net.paradise_client.*;
 import net.paradise_client.command.Command;
+import net.paradise_client.command.CommandManager;
 
 import java.util.Random;
 
 public class DumpCommand extends Command {
   public DumpCommand() {
-    super("dump", "IP dumping methods");
+    super("dump", "IP dumping methods", CommandManager.CommandCategory.MISC);
   }
 
   @Override public void build(LiteralArgumentBuilder<CommandSource> root) {
