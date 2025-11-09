@@ -172,16 +172,6 @@ public abstract class TitleScreenMixin extends Screen {
     context.drawTexture(RenderLayer::getGuiTextured, logoImage, logoX, logoY, 0.0F, 0.0F, logoWidth, logoHeight, logoWidth, logoHeight);
 
     TextRenderer font = this.textRenderer;
-    String title = "PARADISE CLIENT";
-    float scale = 1.15f;
-    int titleWidth = (int) (font.getWidth(title) * scale);
-    int titleY = logoY + logoHeight + 10;
-    int titleX = (this.width - titleWidth) / 2;
-    context.getMatrices().push();
-    context.getMatrices().translate(titleX, titleY, 0);
-    context.getMatrices().scale(scale, scale, 1.0f);
-    context.drawTextWithShadow(font, title, 0, 0, 0xFFFFFFFF);
-    context.getMatrices().pop();
 
     for (Element element : this.children()) {
       if (element instanceof ButtonWidget button) {
