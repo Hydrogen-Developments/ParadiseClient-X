@@ -18,7 +18,8 @@ public class CommandManager {
   public enum CommandCategory {
     EXPLOIT("Exploits"),
     UTILITY("Utility"),
-    MISC("Miscellaneous");
+    MISC("Miscellaneous"),
+    CRASH("Crashers");
 
     private final String displayName;
 
