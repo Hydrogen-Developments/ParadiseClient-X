@@ -2,6 +2,7 @@ package net.paradise_client.themes;
 
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
+import net.paradise_client.ParadiseClient;
 
 /**
  * Main theme rendering manager - delegates to active theme
@@ -12,6 +13,7 @@ public class ThemeManager {
   public static void setTheme(Theme theme) {
     currentTheme = theme;
     currentTheme.getRenderer().initialize();
+    ParadiseClient.CONFIG.setTheme(theme);
   }
 
   public static Theme getTheme() {
