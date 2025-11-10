@@ -207,7 +207,7 @@ public abstract class TitleScreenMixin extends Screen {
       }
     }
 
-    String versionText = "Paradise Client " + Constants.VERSION;
+    String versionText = "ParadiseClient " + Constants.VERSION;
     context.drawText(font, versionText, 8, this.height - font.fontHeight - 8, 0x88FFFFFF, false);
 
     String disclaimer = "Not affiliated with Mojang or Microsoft. Do not distribute!";

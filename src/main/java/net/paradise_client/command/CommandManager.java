@@ -11,7 +11,7 @@ import net.paradise_client.command.impl.*;
 import java.util.*;
 
 /**
- * Manages and registers commands for the Paradise Client Fabric mod.
+ * Manages and registers commands for the ParadiseClient Fabric mod.
  */
 public class CommandManager {
 

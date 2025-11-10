@@ -84,7 +84,7 @@ jobs:
               "allowed_mentions": { "parse": ["roles"] },
               "embeds": [
                 {
-                  "title": "Paradise Client Build Released",
+                  "title": "ParadiseClient Build Released",
                   "description": "**Version:** `ParadiseClient-'${VERSION_NAME}'`\n**Downloads:** [paradise-client.net/downloads](https://paradise-client.net/downloads/)\n**Commit:** [`'${GIT_HASH}'`](https://github.com/'${REPO}'/commit/'${GIT_HASH}')",
                   "color": 5763719,
                   "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",

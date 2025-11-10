@@ -1,7 +1,7 @@
 package net.paradise_client.inject.accessor;
 
 /**
- * This interface provides an accessor method for setting the username in a session. It is used in the Paradise Client
+ * This interface provides an accessor method for setting the username in a session. It is used in the ParadiseClient
  * Fabric mod to modify the username before it is sent to the server.
  *
  * @author Spigotrce

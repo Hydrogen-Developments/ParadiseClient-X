@@ -1,7 +1,7 @@
 package net.paradise_client.addon;
 
 /**
- * Base class for Paradise Client addons.
+ * Base class for ParadiseClient addons.
  */
 public abstract class ParadiseAddon {
   /**

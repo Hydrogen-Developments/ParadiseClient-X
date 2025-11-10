@@ -41,7 +41,7 @@ public class UnsupportedOSUtil {
     } catch (Exception e) {
       Constants.LOGGER.error("Unexpected error during compatibility check.", e);
       showError("An unexpected error occurred while checking system compatibility.\n\nError: " + e.getMessage(),
-        "Paradise Client – System Error");
+        "ParadiseClient – System Error");
       throw new UnsupportedOperationException("System compatibility check failed unexpectedly.", e);
     }
   }
@@ -55,7 +55,7 @@ public class UnsupportedOSUtil {
     if (!arch.contains("amd64") && !arch.contains("x86_64")) {
       Constants.LOGGER.error("32-bit Windows not supported.");
       showError(getAppPath() + " is not a valid Win32 application. (Requires 64-bit Windows.)",
-        "Paradise Client – System Error");
+        "ParadiseClient – System Error");
       System.exit(1);
     }
   }
@@ -73,7 +73,7 @@ public class UnsupportedOSUtil {
       return;
     }
 
-    fail(getWindowsMessage(os), "Paradise Client requires Windows 11 or higher");
+    fail(getWindowsMessage(os), "ParadiseClient requires Windows 11 or higher");
   }
 
   private static void checkMacOSCompatibility() {
@@ -88,9 +88,9 @@ public class UnsupportedOSUtil {
 
     int major = Integer.parseInt(ver.split("\\.")[0]);
     if (major < MIN_MACOS_VERSION) {
-      fail(String.format("You're running %s.\n\nParadise Client requires macOS Monterey (12.0) or newer.\n\n" +
+      fail(String.format("You're running %s.\n\nParadiseClient requires macOS Monterey (12.0) or newer.\n\n" +
           "Please update your Mac's operating system.", getMacOSName(major, ver)),
-        "Paradise Client requires macOS Monterey or higher");
+        "ParadiseClient requires macOS Monterey or higher");
     }
     Constants.LOGGER.info("macOS version check passed: {}", ver);
   }
@@ -110,12 +110,12 @@ public class UnsupportedOSUtil {
     int minor = Integer.parseInt(parts[1]);
 
     if (major < MIN_LINUX_KERNEL_MAJOR || (major == MIN_LINUX_KERNEL_MAJOR && minor < MIN_LINUX_KERNEL_MINOR)) {
-      fail(String.format("Your Linux kernel %d.%d is too old.\n\nParadise Client requires kernel %d.%d+.\n\n" +
+      fail(String.format("Your Linux kernel %d.%d is too old.\n\nParadiseClient requires kernel %d.%d+.\n\n" +
           "Update to Ubuntu 22.04+, Debian 11+, or Fedora 38+.",
         major,
         minor,
         MIN_LINUX_KERNEL_MAJOR,
-        MIN_LINUX_KERNEL_MINOR), "Paradise Client – Outdated Linux Kernel");
+        MIN_LINUX_KERNEL_MINOR), "ParadiseClient – Outdated Linux Kernel");
     }
     Constants.LOGGER.info("Linux kernel check passed: {}.{}", major, minor);
   }
@@ -178,9 +178,9 @@ public class UnsupportedOSUtil {
 
     if (!ver.equals("unknown Windows")) {
       return String.format("You're running %s.\n\nThis version is no longer supported by Microsoft " +
-        "and cannot run Paradise Client.\n\nUpgrade to Windows 11.", ver);
+        "and cannot run ParadiseClient.\n\nUpgrade to Windows 11.", ver);
     }
-    return String.format("Your Windows version is too old.\n\nParadise Client requires Windows 11 (Build %d+).\n\n" +
+    return String.format("Your Windows version is too old.\n\nParadiseClient requires Windows 11 (Build %d+).\n\n" +
       "Please upgrade your OS.", MIN_WINDOWS_BUILD);
   }
 
@@ -189,7 +189,7 @@ public class UnsupportedOSUtil {
     Constants.LOGGER.error("FATAL: UNSUPPORTED OS");
     Constants.LOGGER.error(msg.replaceAll("<[^>]*>", "").replace("\n", " "));
     Constants.LOGGER.error("========================================");
-    showError(msg, "Paradise Client – System Compatibility Failure");
+    showError(msg, "ParadiseClient – System Compatibility Failure");
     throw new UnsupportedOperationException(exception);
   }
 
@@ -324,7 +324,7 @@ public class UnsupportedOSUtil {
       String path = UnsupportedOSUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
       return new File(URLDecoder.decode(path, StandardCharsets.UTF_8)).getAbsolutePath();
     } catch (Exception e) {
-      return "Paradise Client";
+      return "ParadiseClient";
     }
   }
 
