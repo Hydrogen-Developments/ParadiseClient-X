@@ -14,6 +14,7 @@ import net.paradise_client.addon.AddonLoader;
 import net.paradise_client.command.CommandManager;
 import net.paradise_client.config.Config;
 import net.paradise_client.discord.DiscordRPCManager;
+import net.paradise_client.event.bus.EventBus;
 import net.paradise_client.exploit.ExploitManager;
 import net.paradise_client.mod.*;
 import net.paradise_client.packet.DummyPacket;

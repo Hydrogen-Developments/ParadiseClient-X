@@ -3,7 +3,7 @@ package net.paradise_client.event.bus;
 import net.paradise_client.event.impl.chat.*;
 import net.paradise_client.event.impl.minecraft.*;
 import net.paradise_client.event.impl.network.*;
-import net.paradise_client.event.impl.network.message.PluginMessageEvent;
+import net.paradise_client.event.impl.network.message.*;
 import net.paradise_client.event.impl.network.packet.incoming.*;
 import net.paradise_client.event.impl.network.packet.outgoing.*;
 
@@ -17,6 +17,8 @@ public class EventBus {
     new EventChannel<>(new ClientShutdownEvent());
   public static final EventChannel<PluginMessageEvent> PLUGIN_MESSAGE_EVENT_CHANNEL =
     new EventChannel<>(new PluginMessageEvent());
+  public static final EventChannel<ServerChannelRegisterEvent> SERVER_CHANNEL_REGISTER_EVENT_EVENT_CHANNEL =
+    new EventChannel<>(new ServerChannelRegisterEvent());
   public static final EventChannel<PacketIncomingPreEvent> PACKET_INCOMING_PRE_EVENT_CHANNEL =
     new EventChannel<>(new PacketIncomingPreEvent());
   public static final EventChannel<PacketIncomingPostEvent> PACKET_INCOMING_POST_EVENT_CHANNEL =

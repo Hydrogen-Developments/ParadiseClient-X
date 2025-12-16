@@ -6,7 +6,7 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 import net.minecraft.network.PacketByteBuf;
 import net.paradise_client.*;
 import net.paradise_client.event.bus.EventBus;
-import net.paradise_client.event.impl.network.message.PluginMessageEvent;
+import net.paradise_client.event.impl.network.message.*;
 import net.paradise_client.protocol.*;
 import net.paradise_client.protocol.packet.AbstractPacket;
 import net.paradise_client.protocol.packet.impl.PluginMessagePacket;
@@ -49,6 +49,7 @@ public class ParadiseS2CPluginMessageHandler extends MessageToMessageDecoder<Byt
     if (Objects.equals(channelName, "minecraft:register") || Objects.equals(channelName, "REGISTER")) {
       Helper.printChatMessage("&b&l[Channel Registration]");
       String[] channels = buf.toString(Charset.defaultCharset()).split("\000");
+      EventBus.SERVER_CHANNEL_REGISTER_EVENT_EVENT_CHANNEL.fire(new ServerChannelRegisterEvent(List.of(channels)));
 
       for (String channel : channels) {
         boolean isKnown = ParadiseClient.NETWORK_MOD.getRegisteredChannelsByName().contains(channel);
